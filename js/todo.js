@@ -1,6 +1,28 @@
-function TodoApp ($scope) {
+/**
+* todoapp Module
+*
+* Description
+*/
+angular.module('todoapp', ['ngRoute'])
+
+.config(function($routeProvider) {
+	$routeProvider
+		.when('/', {
+			controller: 'TodoController',
+			templateUrl: 'todo.html'
+		})
+		.when('/archive', {
+			controller: 'TodoController',
+			templateUrl: 'archive.html'
+		})
+		.otherwise({
+	    	redirectTo:'/'
+	    });
+})
+
+.controller('TodoController', function($scope){
 	$scope.todos = angular.fromJson(localStorage.todos);
-	$scope.todoArchive = [];
+	$scope.todoArchive = angular.fromJson(localStorage.todoArchive);;
 
 	$scope.todoCount = $scope.todos.length + 1;
 
@@ -45,4 +67,4 @@ function TodoApp ($scope) {
 	    $scope.saveArchive();
 	    $scope.saveTodos();
   	};
-}
+})

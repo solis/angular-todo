@@ -1,0 +1,11 @@
+<ul class="list-group">
+	<li class="list-group-item" ng-repeat="todo in todoArchive">
+		<span class="glyphicon glyphicon-ok" ng-click="doneTodo(todo)" ng-show="todo.done"></span>
+		<span class="glyphicon glyphicon-asterisk" ng-click="doneTodo(todo)" ng-show="!todo.done"></span>
+
+		<span class="done-{{todo.done}}">{{todo.task}}</span>
+
+		<button type="button" class="close" aria-hidden="true" ng-click="removeTodo(todo)">&times;</button>
+		<span class="badge">{{todo.count}}</span>
+	</li>
+</ul>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="todoapp">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,34 +11,16 @@
 	<script src="lib/jquery-2.0.2.js"></script>
 	<script src="lib/bootstrap.min.js"></script>
 	<script src="lib/angular.js"></script>
+	<script src="lib/angular-route.js"></script>
 
 	<script src="js/todo.js"></script>
 </head>
 <body>
-	<div ng-controller="TodoApp" class="center-block">
-
+	<div class="center-block">
 		<div class="page-header ">
 	  		<h1>TODO application <small>Sample</small></h1>
-	  		<span>{{remaining()}} of {{todos.length}} remaining</span> [ <a href="" ng-click="archive()">archive</a> ]
 		</div>
-
-		<form class="input-group" ng-submit="addTodo()">
-			<input type="text" class="form-control" placeholder="What to do" ng-model="todoTask">
-			<span class="input-group-btn">
-		    	<button class="btn btn-default" type="submit">Add</button>
-		   	</span>
-		</form>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="todo in todos">
-				<span class="glyphicon glyphicon-ok" ng-click="doneTodo(todo)" ng-show="todo.done"></span>
-				<span class="glyphicon glyphicon-asterisk" ng-click="doneTodo(todo)" ng-show="!todo.done"></span>
-
-				<span class="done-{{todo.done}}">{{todo.task}}</span>
-
-				<button type="button" class="close" aria-hidden="true" ng-click="removeTodo(todo)">&times;</button>
-				<span class="badge">{{todo.count}}</span>
-			</li>
-		</ul>
+		<div ng-view></div>
 	</div>
 </body>
 </html>
