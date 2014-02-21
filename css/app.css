@@ -1,0 +1,11 @@
+.done-true {
+	text-decoration: line-through;
+	color: grey;
+}
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 750px;
+}
