@@ -21,7 +21,7 @@ angular.module('todoapp', ['ngRoute'])
 })
 
 .controller('ListController', function($scope){
-	$scope.todos = angular.fromJson(localStorage.todos);
+	$scope.todos = angular.fromJson(localStorage.todos) || [];
 
 	$scope.addTodo = function () {
 		$scope.todos.push({task: $scope.todoTask, done: false});
@@ -45,30 +45,63 @@ angular.module('todoapp', ['ngRoute'])
 	    return count;
     };
 
-  	$scope.archive = function() {
-  		var todoArchive = [];
-	    angular.forEach($scope.todos, function(todo) {
-	      if (todo.done) {
-	      	var archTodo = $scope.todos.splice($scope.todos.indexOf(todo), 1);
-	      	todoArchive = $scope.todoArchive.concat(archTodo);
-	      }
+    $scope.completed = function() {
+    	return $scope.todos.length - $scope.remaining();
+    }
+
+    $scope.total = function() {
+    	return $scope.todos.length;
+    }
+
+    $scope.progress = function() {
+    	return Math.floor($scope.completed() / $scope.total() * 100);
+    }
+
+    $scope.archive = function (todo) {
+    	$scope.todos.splice($scope.todos.indexOf(todo), 1);
+    	var todoArchive = angular.fromJson(localStorage.todoArchive);
+    	todoArchive.push(todo);
+    	localStorage.todoArchive = angular.toJson(todoArchive);
+    	$scope.saveTodos();
+    }
+
+  	$scope.archiveAll = function() {
+  		var toArchive = $scope.todos.filter(function(todo) {
+  			return todo.done;
+  		});
+
+	    angular.forEach(toArchive, function(todo) {
+	    	$scope.todos.splice($scope.todos.indexOf(todo), 1);
 	    });
+
+	    var todoArchive = angular.fromJson(localStorage.todoArchive) || [];;
+	    todoArchive = todoArchive.concat(toArchive);
 	    localStorage.todoArchive = angular.toJson(todoArchive);
 	    $scope.saveTodos();
   	};
+
 })
 
 .controller('ArchiveController', function($scope) {
-	$scope.todoArchive = angular.fromJson(localStorage.todoArchive);;
+	$scope.todoArchive = angular.fromJson(localStorage.todoArchive);
 
-	$scope.removeTodo = function (todo) {
-		$scope.todoArchive.splice($scope.todoArchive.indexOf(todo), 1);
+	$scope.saveArchive = function() {
 		localStorage.todoArchive = angular.toJson($scope.todoArchive);
+	}
+
+	$scope.removeTodo = function(todo) {
+		$scope.todoArchive.splice($scope.todoArchive.indexOf(todo), 1);
+		$scope.saveArchive();
+	}
+
+	$scope.removeAll = function() {
+		$scope.todoArchive = [];
+		$scope.saveArchive();
 	}
 })
 
 .controller('HeaderController', function($scope, $location) {
-    $scope.isActive = function (viewLocation) {
+    $scope.isActive = function(viewLocation) {
         return viewLocation === $location.path();
     };
 })

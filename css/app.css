@@ -9,3 +9,11 @@
   margin-right: auto;
   width: 750px;
 }
+
+.icon {
+	opacity: .45;
+}
+
+.icon:hover {
+	opacity: .85;
+}

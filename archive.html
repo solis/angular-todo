@@ -1,7 +1,6 @@
 <ul class="list-group">
-	<li class="list-group-item" ng-repeat="todo in todoArchive">
+	<li class="list-group-item" ng-repeat="todo in todoArchive | filter:search">
 		<span class="glyphicon glyphicon-ok" ng-click="doneTodo(todo)" ng-show="todo.done"></span>
-		<span class="glyphicon glyphicon-asterisk" ng-click="doneTodo(todo)" ng-show="!todo.done"></span>
 
 		<span class="done-{{todo.done}}">{{todo.task}}</span>
 
