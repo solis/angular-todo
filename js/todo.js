@@ -22,14 +22,15 @@ angular.module('todoapp', ['ngRoute'])
 
 .controller('ListController', function($scope){
 	$scope.todos = angular.fromJson(localStorage.todos) || [];
+	$scope.levels = ['default', 'primary', 'info', 'warning', 'danger'];
 
 	$scope.addTodo = function () {
-		$scope.todos.push({task: $scope.todoTask, done: false});
+		$scope.todos.push({task: $scope.todoTask, done: false, level: $scope.levels[0]});
 		$scope.todoTask = '';
 	}
 
 	$scope.doneTodo = function (todo) {
-		todo.done = !todo.done
+		todo.done = !todo.done;
 		$scope.saveTodos();
 	}
 
@@ -78,8 +79,13 @@ angular.module('todoapp', ['ngRoute'])
 	    todoArchive = todoArchive.concat(toArchive);
 	    localStorage.todoArchive = angular.toJson(todoArchive);
 	    $scope.saveTodos();
-  	};
+  	}
 
+  	$scope.changeLevel = function(todo) {
+  		var index = $scope.levels.indexOf(todo.level);
+  		todo.level = $scope.levels[(index + 1) % $scope.levels.length];
+  		$scope.saveTodos();
+  	}
 })
 
 .controller('ArchiveController', function($scope) {
