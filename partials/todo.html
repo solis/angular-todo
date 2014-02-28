@@ -4,14 +4,14 @@
     	<button class="btn btn-default" type="submit">Add</button>
    	</span>
 </form>
-<ul class="list-group">
+<ul class="list-group" my-sortable id="#sortable">
 	<li class="list-group-item" ng-repeat="todo in todos | filter:search">
 		<span class="glyphicon glyphicon-ok" ng-click="doneTodo(todo)" ng-show="todo.done"></span>
 		<span class="glyphicon glyphicon-asterisk icon" ng-click="doneTodo(todo)" ng-show="!todo.done"></span>
 
 		<span class="done-{{todo.done}}">{{todo.task}}</span>
-		<span class="label label-{{todo.level}}" ng-click="changeLevel(todo)">{{todo.level}}</span>
 		<span class="glyphicon glyphicon-compressed close" aria-hidden="true" ng-click="archive(todo)" ng-show="todo.done"></span>
+		<span class="label label-{{todo.level}} right" ng-click="changeLevel(todo)">{{todo.level}}</span>
 		<!-- <button type="button" class="close" aria-hidden="true" ng-click="removeTodo(todo)">&times;</button> -->
 	</li>
 </ul>

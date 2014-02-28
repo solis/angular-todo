@@ -17,3 +17,16 @@
 .icon:hover {
 	opacity: .85;
 }
+
+.right {
+	margin-right: 10px;
+	float: right;
+	line-height: 1;
+}
+
+.right:hover,
+.right:focus {
+	text-decoration: none;
+  	cursor: pointer;
+  	opacity: .8;
+}
